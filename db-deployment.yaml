@@ -1,22 +1,22 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: apps/v1                   # Specifies the API version
+kind: Deployment                      # Specifies the type of Kubernetes resource
 metadata:
-  name: db-deployment
-  namespace: migration-docker-kubernetes
+  name: db-deployment                 # Name of the deployment
+  namespace: migration-docker-kubernetes  # Namespace where the deployment will be created
 spec:
-  replicas: 1
-  selector:
+  replicas: 1                         # Number of pod replicas
+  selector:                           # Selector to identify the pods managed by this deployment
     matchLabels:
-      app: db
-  template:
+      app: db                         # Label that the pods must have to be managed by this deployment
+  template:                           # Template to define the pods
     metadata:
       labels:
-        app: db
+        app: db                       # Labels to assign to the pods
     spec:
       containers:
-        - name: db
-          image: postgres:13
-          env:
+        - name: db                    # Name of the container
+          image: postgres:13          # Container image to use
+          env:                        # Environment variables for the container
             - name: POSTGRES_DB
               value: mydatabase
             - name: POSTGRES_USER
@@ -24,12 +24,12 @@ spec:
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: db-secret
-                  key: POSTGRES_PASSWORD
+                  name: db-secret     # Name of the Secret containing the password
+                  key: POSTGRES_PASSWORD  # Key in the Secret containing the password value
           volumeMounts:
             - name: db-storage
-              mountPath: /var/lib/postgresql/data
+              mountPath: /var/lib/postgresql/data  # Path to mount the volume in the container
       volumes:
         - name: db-storage
           persistentVolumeClaim:
-            claimName: db-pvc
+            claimName: db-pvc         # Name of the PersistentVolumeClaim providing the storage

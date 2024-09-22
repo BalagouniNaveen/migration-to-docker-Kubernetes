@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: web-service
+  namespace: migration-docker-kubernetes
+subsets:
+  - addresses:
+      - ip: 10.244.0.180
+      - ip: 10.244.0.182
+    ports:
+      - port: 5000
+        protocol: TCP

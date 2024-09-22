@@ -1,0 +1,19 @@
+subsets:
+- notReadyAddresses:
+  - ip: 10.244.0.180
+    nodeName: minikube
+    targetRef:
+      kind: Pod
+      name: web-deployment-6c59c4f655-vcpl4
+      namespace: migration-docker-kubernetes
+      uid: 55d9181f-a9db-4f7e-aed4-407f98b9f35a
+  - ip: 10.244.0.182
+    nodeName: minikube
+    targetRef:
+      kind: Pod
+      name: web-deployment-555d748c64-ck72l
+      namespace: migration-docker-kubernetes
+      uid: 395c0aa9-e123-4d4a-adfe-dbb73be28efb
+  ports:
+  - port: 5000
+    protocol: TCP

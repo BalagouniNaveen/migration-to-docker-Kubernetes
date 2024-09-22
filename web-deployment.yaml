@@ -1,27 +1,27 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: apps/v1           # Specifies the API version
+kind: Deployment              # Specifies the type of Kubernetes resource
 metadata:
-  name: web-deployment
-  namespace: migration-docker-kubernetes
+  name: web-deployment        # Name of the deployment
+  namespace: migration-docker-kubernetes  # Namespace where the deployment will be created
 spec:
-  replicas: 1
-  selector:
+  replicas: 1                 # Number of pod replicas
+  selector:                   # Selector to identify the pods managed by this deployment
     matchLabels:
-      app: web
-  template:
+      app: web                # Label that the pods must have to be managed by this deployment
+  template:                   # Template to define the pods
     metadata:
       labels:
-        app: web
+        app: web              # Labels to assign to the pods
     spec:
       containers:
-        - name: web
-          image: my-web-app:latest
+        - name: webexplaination         # Name of the container
+          image: my-web-app:latest      # Container image to use
           ports:
-            - containerPort: 5000
+            - containerPort: 5000       # Network port the container will expose
           env:
-            - name: DATABASE_URL
+            - name: DATABASE_URL        # Environment variable for the container
               valueFrom:
-                configMapKeyRef:
-                  name: web-config
-                  key: DATABASE_URL
-      restartPolicy: Always
+                configMapKeyRef:        # Reference to a key in a ConfigMap
+                  name: web-config      # Name of the ConfigMap
+                  key: DATABASE_URL     # Key in the ConfigMap
+      restartPolicy: Always             # Policy to restart the pod automatically if it fails
